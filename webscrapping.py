@@ -53,7 +53,7 @@ def real_time_price(stock_code):
 
 Stock = ['BRK-B', 'PYPL', 'TWTR', 'AAPL', 'AMZN', 'MSFT', 'META', 'GOOG']
 
-while (True):
+for _ in range(5):
     info = []
     col = []
     time_stamp = datetime.datetime.now()
