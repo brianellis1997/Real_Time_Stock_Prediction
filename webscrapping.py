@@ -23,9 +23,32 @@ def real_time_price(stock_code):
             price, change = texts[0], texts[1]
         else:
             price, change = [], []
+    
+        texts = web_content_div(web_content, 'container yf-tx3nkj')
+        if texts != []:
+            for count, vol in enumerate(texts):
+                if vol == 'Volume':
+                    volume = texts[count + 1]
+        else:
+            volume = []
+
+        pattern = web_content_div(web_content, 'Fz(xs) Mb(4px)')
+        try:
+            latest_pattern = pattern[0]
+        except IndexError:
+            latest_pattern = []
+
+        texts = web_content_div(web_content, 'container yf-tx3nkj')
+        if texts != []:
+            for count, target, in enumerate(texts):
+                if target == '1y Target Est':
+                    one_year_target = texts[count + 1]
+        else:
+            one_year_target = []
+    
     except ConnectionError:
-        price, change = [], []
-    return price, change
+        price, change, volume, latest_pattern, one_year_target = [], [], [], [], []
+    return price, change, volume, latest_pattern, one_year_target
 
 
 Stock = ['BRK-B']
